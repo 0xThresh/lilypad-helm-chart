@@ -1,0 +1,12 @@
+apiVersion: v2
+name: lilypad-resource-provider
+version: 0.0.1
+appVersion: 2.10.0
+home: https://docs.lilypad.tech/lilypad
+description: 'Lilypad is developing a serverless, distributed compute network that enables internet-scale data processing, AI, ML & other arbitrary computation, while unleashing idle processing power & unlocking a new marketplace for compute.'
+keywords:
+- ai
+- ml
+- serverless
+sources:
+- https://github.com/Lilypad-Tech/lilypad/releases
