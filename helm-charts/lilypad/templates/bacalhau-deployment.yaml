@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bacalhau
+spec:
+  selector:
+    matchLabels:
+      app: bacalhau
+  template:
+    metadata:
+      labels:
+        app: bacalhau
+    spec:
+      containers:
+        - name: bacalhau
+          image: "{{ .Values.bacalhau.image.repository }}:{{ .Values.bacalhau.image.tag }}"
+          command: {{ .Values.bacalhau.command }}
+          env: {{ .Values.bacalhau.environment | toYaml | nindent 12 }}
+          volumeMounts:
+            - name: bacalhau-data
+              mountPath: /root/.bacalhau
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
+      volumes:
+        - name: bacalhau-data
+          persistentVolumeClaim:
+            claimName: bacalhau-pvc
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock

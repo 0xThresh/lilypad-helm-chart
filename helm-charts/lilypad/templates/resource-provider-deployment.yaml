@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-provider
+spec:
+  selector:
+    matchLabels:
+      app: resource-provider
+  template:
+    metadata:
+      labels:
+        app: resource-provider
+    spec:
+      containers:
+        - name: resource-provider
+          image: "{{ .Values.resourceProvider.image.repository }}:{{ .Values.resourceProvider.image.tag }}"
+          env: {{ .Values.resourceProvider.environment | toYaml | nindent 12 }}
+          volumeMounts:
+            - name: lilypad-data
+              mountPath: /tmp/lilypad/data
+      volumes:
+        - name: lilypad-data
+          persistentVolumeClaim:
+            claimName: lilypad-pvc

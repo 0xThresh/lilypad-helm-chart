@@ -1,0 +1,44 @@
+{{- if .Values.ipfs.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ipfs-pv
+spec:
+  capacity:
+    storage: {{ .Values.ipfs.persistence.size }}
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.ipfs.persistence.storageClass }}
+  hostPath:
+    path: /data/ipfs-data
+---
+{{- end }}
+{{- if .Values.bacalhau.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bacalhau-pv
+spec:
+  capacity:
+    storage: {{ .Values.bacalhau.persistence.size }}
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.bacalhau.persistence.storageClass }}
+  hostPath:
+    path: /data/bacalhau-data
+---
+{{- end }}
+{{- if .Values.resourceProvider.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lilypad-pv
+spec:
+  capacity:
+    storage: {{ .Values.resourceProvider.persistence.size }}
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.resourceProvider.persistence.storageClass }}
+  hostPath:
+    path: /data/lilypad-data
+{{- end }}

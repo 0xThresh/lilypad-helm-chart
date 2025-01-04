@@ -1,0 +1,73 @@
+ipfs:
+  image:
+    repository: ipfs/kubo
+    tag: v0.32.1
+  ports:
+    - port: 4001
+      targetPort: 4001
+      name: "peering"
+    - port: 5001
+      targetPort: 5001
+      name: "prometheus"
+    - port: 8080
+      targetPort: 8080
+      name: "http"
+  persistence:
+    enabled: true
+    storageClass: ""
+    size: 10Gi
+
+bacalhau:
+  image:
+    repository: ghcr.io/lilypad-tech/bacalhau
+    tag: latest
+  environment:
+    - name: BACALHAU_ENVIRONMENT
+      value: local
+  command:
+    - serve
+    - --node-type
+    - compute,requester
+    - --peer
+    - none
+    - --private-internal-ipfs=false
+    - --job-selection-accept-networked
+    - --ipfs-connect
+    - /dns4/ipfs/tcp/5001
+  persistence:
+    enabled: true
+    storageClass: ""
+    size: 10Gi
+
+resourceProvider:
+  image:
+    repository: ghcr.io/lilypad-tech/resource-provider
+    tag: latest
+  environment:
+    - name: WEB3_PRIVATE_KEY
+      valueFrom:
+        secretKeyRef:
+          name: lilypad-secrets
+          key: web3_private_key
+    - name: WEB3_RPC_URL
+      valueFrom:
+        secretKeyRef:
+          name: lilypad-secrets
+          key: web3_rpc_url
+    - name: IPFS_CONNECT
+      value: /dns4/ipfs/tcp/5001
+    - name: BACALHAU_API_HOST
+      value: bacalhau
+    - name: BACALHAU_NODE_CLIENTAPI_HOST
+      value: bacalhau
+    - name: BACALHAU_NODE_CLIENTAPI_PORT
+      value: "1234"
+  persistence:
+    enabled: true
+    storageClass: ""
+    size: 10Gi
+
+watchtower:
+  image:
+    repository: containrrr/watchtower
+    tag: latest
