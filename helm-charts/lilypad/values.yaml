@@ -48,12 +48,12 @@ resourceProvider:
       valueFrom:
         secretKeyRef:
           name: lilypad-secrets
-          key: web3_private_key
+          key: WEB3_PRIVATE_KEY
     - name: WEB3_RPC_URL
       valueFrom:
         secretKeyRef:
           name: lilypad-secrets
-          key: web3_rpc_url
+          key: RPC
     - name: IPFS_CONNECT
       value: /dns4/ipfs/tcp/5001
     - name: BACALHAU_API_HOST
