@@ -24,7 +24,7 @@ bacalhau:
   environment:
     - name: BACALHAU_ENVIRONMENT
       value: local
-  command:
+  args:
     - serve
     - --node-type
     - compute,requester

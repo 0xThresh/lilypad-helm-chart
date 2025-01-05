@@ -14,7 +14,7 @@ spec:
       containers:
         - name: bacalhau
           image: "{{ .Values.bacalhau.image.repository }}:{{ .Values.bacalhau.image.tag }}"
-          command: {{ .Values.bacalhau.command }}
+          args: {{ .Values.bacalhau.args | toYaml | nindent 12 }}
           env: {{ .Values.bacalhau.environment | toYaml | nindent 12 }}
           volumeMounts:
             - name: bacalhau-data
