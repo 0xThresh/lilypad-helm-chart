@@ -1,17 +1,3 @@
-{{- if .Values.ipfs.persistence.enabled }}
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ipfs-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: {{ .Values.ipfs.persistence.storageClass }}
-  resources:
-    requests:
-      storage: {{ .Values.ipfs.persistence.size }}
----
-{{- end }}
 {{- if .Values.bacalhau.persistence.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim

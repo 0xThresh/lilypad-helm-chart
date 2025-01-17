@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bacalhau
+  name: {{ .Release.Name }}-bacalhau
 spec:
   selector:
     matchLabels:
-      app: bacalhau
+      app: {{ .Release.Name }}-bacalhau
   template:
     metadata:
       labels:
-        app: bacalhau
+        app: {{ .Release.Name }}-bacalhau
     spec:
       containers:
         - name: bacalhau

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-bacalhau
+  labels:
+    app: {{ .Release.Name }}-bacalhau
+spec:
+  type: ClusterIP
+  ports:
+    - port: 1234
+      targetPort: 1234
+      protocol: TCP
+      name: bacalhau
+  selector:
+    app: {{ .Release.Name }}-bacalhau

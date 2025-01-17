@@ -1,18 +1,3 @@
-{{- if .Values.ipfs.persistence.enabled }}
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: ipfs-pv
-spec:
-  capacity:
-    storage: {{ .Values.ipfs.persistence.size }}
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: {{ .Values.ipfs.persistence.storageClass }}
-  hostPath:
-    path: /data/ipfs-data
----
-{{- end }}
 {{- if .Values.bacalhau.persistence.enabled }}
 apiVersion: v1
 kind: PersistentVolume
